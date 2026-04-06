@@ -122,16 +122,16 @@
 <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-700">dashboard</span>
 <span>Dashboard</span>
 </a>
-<a href="{{ url_for('history') }}" class="flex items-center gap-3 px-4 py-3 bg-white text-blue-700 font-bold rounded-lg shadow-sm">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+<a href="{{ url_for('history') }}" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 transition-all rounded-lg font-medium group">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-blue-700">receipt_long</span>
 <span>Expenses</span>
 </a>
 <a href="{{ url_for('advisor') }}" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 transition-all rounded-lg font-medium group">
 <span class="material-symbols-outlined text-slate-400 group-hover:text-blue-700">psychology</span>
 <span>AI Advisor</span>
 </a>
-<a href="{{ url_for('insurance') }}" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 transition-all rounded-lg font-medium group">
-<span class="material-symbols-outlined text-slate-400 group-hover:text-blue-700">health_and_safety</span>
+<a href="{{ url_for('insurance') }}" class="flex items-center gap-3 px-4 py-3 bg-white text-blue-700 font-bold rounded-lg shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">health_and_safety</span>
 <span>Insurance Plans</span>
 </a>
 <div class="pt-8 mt-auto space-y-2">
@@ -174,12 +174,23 @@
                     <span class="font-bold">Jan 01, 2027</span>
                 </div>
             </div>
-            <button class="mt-8 px-6 py-3 bg-white text-primary rounded-xl font-bold w-full hover:bg-slate-100 transition-colors">File a Claim</button>
+            <button id="claim-btn" class="mt-8 px-6 py-3 bg-white text-primary rounded-xl font-bold w-full hover:bg-slate-100 transition-colors">File a Claim</button>
         </div>
     </div>
 </main>
 
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const claimBtn = document.getElementById('claim-btn');
+        if (claimBtn) {
+            claimBtn.addEventListener('click', function () {
+                const coverage = "{{ analysis.invoices_pending | inr }}";
+                alert(`Claim filed successfully!\n\nEstimated Reimbursement Based on Recent Expenditures: ₹${coverage}`);
+            });
+        }
+    });
+</script>
 <!-- Footer -->
 <footer class="w-full border-t border-slate-200/50 bg-slate-50">
 <div class="flex flex-col md:flex-row justify-between items-center py-12 px-8 max-w-7xl mx-auto">

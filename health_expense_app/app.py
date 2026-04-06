@@ -134,7 +134,9 @@ def advisor():
 def insurance():
     user_id = session['user_id']
     patient_name = get_user_name(user_id)
-    return render_template('insurance.html', patient_name=patient_name)
+    from analyzer import analyze_expenses
+    analysis = analyze_expenses(user_id)
+    return render_template('insurance.html', patient_name=patient_name, analysis=analysis)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
