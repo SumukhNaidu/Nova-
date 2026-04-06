@@ -62,6 +62,9 @@ def analyze_expenses(user_id):
     category_distribution = category_group.to_dict()
     recent_expenses = df.sort_values(by='Date', ascending=False).head(10).to_dict('records')
     
+    # Calculate a dynamic deductible remaining (assuming 50k base limit)
+    deductible_remaining = max(0, 50000 - total_expenses)
+    
     return {
         'total_expenses': total_expenses,
         'invoices_pending': invoices_pending,
@@ -69,7 +72,8 @@ def analyze_expenses(user_id):
         'highest_category': highest_category,
         'highest_category_amount': highest_category_amount,
         'category_distribution': category_distribution,
-        'recent_expenses': recent_expenses
+        'recent_expenses': recent_expenses,
+        'deductible_remaining': deductible_remaining
     }
 
 def generate_charts(user_id):
