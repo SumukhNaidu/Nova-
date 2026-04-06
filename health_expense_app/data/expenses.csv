@@ -13,4 +13,5 @@ Date,Category,Amount,Description,user_id
 2026-12-23,Lab Tests,12000.0,accident,3
 2026-12-23,Lab Tests,12000.0,accident,3
 2026-12-23,Pharmacy,12000.0,leg fracture,2
-2026-12-23,Insurance,20000,liver transplant,2
+2026-12-23,Insurance,20000.0,liver transplant,2
+2026-12-23,Insurance,1200,accident,4

@@ -148,10 +148,8 @@
 </a>
 </nav>
 <div class="mt-auto pt-8 space-y-1 border-t border-slate-200/50">
-<button class="w-full flex items-center gap-3 px-4 py-2 text-slate-500 hover:bg-slate-100 rounded-xl transition-all font-inter text-sm">
-<span class="material-symbols-outlined">contact_support</span>
-                    Support
-                </button>
+<a href="{{ url_for('plan_review') }}" class="block text-center w-full px-4 py-3 bg-blue-100 text-blue-800 rounded-xl font-bold text-sm mb-4 hover:bg-blue-200 transition-colors">Plan Review</a>
+
 <a href="{{ url_for('logout') }}" class="w-full flex items-center gap-3 px-4 py-2 text-error hover:bg-error-container/20 rounded-xl transition-all font-inter text-sm">
 <span class="material-symbols-outlined">logout</span>
 Sign Out
@@ -211,79 +209,99 @@ Sign Out
 </div>
 {% endfor %}
 </div>
-<!-- AI Smart Suggestions (Wide Card) -->
-<div class="md:col-span-3 lg:col-span-4 mt-4">
-<div class="bg-on-surface text-white rounded-full p-1 lg:p-2 flex flex-col lg:flex-row gap-6 items-center overflow-hidden">
-<div class="flex items-center gap-4 px-6 py-4 lg:py-0">
-<div class="w-12 h-12 rounded-full primary-gradient flex items-center justify-center shrink-0">
-<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<!-- Dynamic Interactive Graph -->
+<div class="md:col-span-3 lg:col-span-4 mt-8 p-8 rounded-3xl bg-white shadow-xl border border-outline-variant/10">
+    <div class="flex justify-between items-center mb-8">
+        <h3 class="font-headline font-extrabold text-2xl text-blue-900">Category Expense Analysis</h3>
+        <span class="text-sm font-bold px-4 py-1 bg-blue-50 text-blue-700 rounded-full">Interactive Breakdown</span>
+    </div>
+    
+    <div class="w-full h-[400px]">
+        <canvas id="expenseChart"></canvas>
+    </div>
 </div>
-<div class="shrink-0">
-<h3 class="font-headline font-bold text-xl leading-tight">Advisor Insights</h3>
-<p class="text-outline-variant text-xs font-label tracking-wide uppercase">Real-time health optimization</p>
-</div>
-</div>
-<div class="flex-1 grid grid-cols-1 md:grid-cols-3 gap-1 w-full lg:w-auto">
-<!-- Suggestion 1: High Medicine Usage -->
-<div class="bg-surface-container-highest/10 hover:bg-surface-container-highest/20 transition-colors px-6 py-6 border-l md:border-l-0 md:border-l border-white/10 group cursor-default">
-<div class="flex items-start gap-3 mb-2">
-<span class="material-symbols-outlined text-secondary-fixed text-sm">check_circle</span>
-<h4 class="text-sm font-bold text-primary-fixed">Medicine Alert</h4>
-</div>
-<p class="text-slate-300 text-sm leading-snug">Current spending is 53% of total. Switch to <span class="text-white font-semibold underline decoration-secondary-fixed/50 underline-offset-4">generic alternatives</span> to save up to ₹22,000/mo.</p>
-</div>
-<!-- Suggestion 2: High Total Expenses -->
-<div class="bg-surface-container-highest/10 hover:bg-surface-container-highest/20 transition-colors px-6 py-6 border-l border-white/10 cursor-default">
-<div class="flex items-start gap-3 mb-2">
-<span class="material-symbols-outlined text-error-container text-sm">trending_up</span>
-<h4 class="text-sm font-bold text-error-container">Limit Threshold</h4>
-</div>
-<p class="text-slate-300 text-sm leading-snug">Expenses trending toward ₹5,00,000. We recommend a <span class="text-white font-semibold underline decoration-error-container/50 underline-offset-4">Premium Insurance Plan</span> review.</p>
-</div>
-<!-- Suggestion 3: Preventive Suggestion -->
-<div class="bg-surface-container-highest/10 hover:bg-surface-container-highest/20 transition-colors px-6 py-6 border-l border-white/10 rounded-r-full cursor-default">
-<div class="flex items-start gap-3 mb-2">
-<span class="material-symbols-outlined text-tertiary-fixed text-sm">shield_with_heart</span>
-<h4 class="text-sm font-bold text-tertiary-fixed">Health Strategy</h4>
-</div>
-<p class="text-slate-300 text-sm leading-snug">Frequent consultations detected. Consider a <span class="text-white font-semibold underline decoration-tertiary-fixed/50 underline-offset-4">Preventive Checkup</span> package this quarter.</p>
-</div>
-</div>
-</div>
-</div>
-<!-- Secondary Data Visualization Section -->
-<div class="md:col-span-2 lg:col-span-2 p-8 rounded-full bg-white shadow-sm border border-outline-variant/10">
-<div class="flex justify-between items-center mb-8">
-<h3 class="font-headline font-bold text-lg">Spending Trends</h3>
-<span class="text-xs text-outline font-medium">Last 6 Months</span>
-</div>
-<div class="flex items-center justify-center pt-4">
-    <img src="{{ url_for('static', filename=chart_filename) }}?t={{ range(1, 1000) | random }}" class="w-full h-auto object-contain max-h-64" alt="Expense Distribution Chart" />
-</div>
-</div>
-<!-- Recent Transactions Placeholder / Illustration -->
-<div class="md:col-span-1 lg:col-span-2 p-8 rounded-full bg-white shadow-sm border border-outline-variant/10 overflow-hidden group">
-<div class="flex justify-between items-center mb-4">
-<h3 class="font-headline font-bold text-lg">Hospital Care Guide</h3>
-<button class="text-primary text-sm font-bold hover:underline">View All</button>
-</div>
-<div class="relative h-32 w-full rounded-xl overflow-hidden">
-<img alt="Modern hospital lobby" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="clean minimal hospital corridor with soft ceiling lights and polished floors in a modern medical facility" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUEbYbzZpKMBZxK2CZdOEkdzpU0Hf1QkludFIu1I7QfdmuXEr82zjbTncRp5Y6d3hKnvujA7eNpz5IBbhDBBYmIZiFs7RbCk6a_kctMvHsvXgkTAhu6Lh7YXI44Eajorabq3NoOa5vLXvJGsjyEqER-1rOnariGWlo1WhPS4Alq8aFXQGNa5mzkKYiaZXZ34Mr0qU68FnTKpR3eS6TjHf_iiNQFeAFI4Yv7SPK1lw1XsotZR1lOyFCSqJiqhNxRWSKBgrWCPKUI3s"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
-<p class="text-white text-xs font-medium">Navigating insurance claims for emergency services.</p>
-</div>
-</div>
-<div class="mt-4 flex items-center gap-3">
-<div class="w-10 h-10 rounded-full bg-tertiary-container/30 flex items-center justify-center shrink-0">
-<span class="material-symbols-outlined text-tertiary">description</span>
-</div>
-<div class="flex-1">
-<h4 class="text-sm font-bold truncate">Claims-Process-Guide.pdf</h4>
-<p class="text-[10px] text-outline font-label">Uploaded yesterday • 2.4 MB</p>
-</div>
-<button class="material-symbols-outlined text-outline hover:text-primary transition-colors">download</button>
-</div>
-</div>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const ctx = document.getElementById('expenseChart').getContext('2d');
+        
+        // Inject Python Analysis Data cleanly
+        const categoryData = {{ analysis.category_distribution | tojson | safe }};
+        
+        const labels = Object.keys(categoryData);
+        const dataValues = Object.values(categoryData);
+        
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Total Expenditures (₹)',
+                    data: dataValues,
+                    backgroundColor: [
+                        '#005EB8', '#00A651', '#007B85', 
+                        '#424752', '#D6E3FF', '#8EE8F3'
+                    ],
+                    borderRadius: 8,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: '#1E293B',
+                        titleFont: { size: 14, family: "'Plus Jakarta Sans', sans-serif" },
+                        bodyFont: { size: 16, weight: 'bold', family: "'Plus Jakarta Sans', sans-serif" },
+                        padding: 12,
+                        cornerRadius: 8,
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(context.parsed.y);
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: '#F1F5F9',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            font: { family: "'Plus Jakarta Sans', sans-serif" },
+                            callback: function(value, index, values) {
+                                return '₹' + value.toLocaleString('en-IN');
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            font: { family: "'Plus Jakarta Sans', sans-serif", weight: 'bold' }
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
 </div>
 </main>
 </div>

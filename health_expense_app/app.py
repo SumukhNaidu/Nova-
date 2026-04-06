@@ -138,6 +138,15 @@ def insurance():
     analysis = analyze_expenses(user_id)
     return render_template('insurance.html', patient_name=patient_name, analysis=analysis)
 
+@app.route('/plan_review')
+@login_required
+def plan_review():
+    user_id = session['user_id']
+    patient_name = get_user_name(user_id)
+    from analyzer import analyze_expenses
+    analysis = analyze_expenses(user_id)
+    return render_template('plan_review.html', patient_name=patient_name, analysis=analysis)
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
 
