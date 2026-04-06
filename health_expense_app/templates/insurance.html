@@ -186,7 +186,9 @@
         if (claimBtn) {
             claimBtn.addEventListener('click', function () {
                 const coverage = "{{ analysis.invoices_pending | inr }}";
-                alert(`Claim filed successfully!\n\nEstimated Reimbursement Based on Recent Expenditures: ₹${coverage}`);
+                claimBtn.innerText = `Claim Filed Successfully! (₹${coverage})`;
+                claimBtn.className = "mt-8 px-6 py-3 bg-green-100 text-green-700 rounded-xl font-bold w-full transition-colors cursor-default";
+                claimBtn.disabled = true;
             });
         }
     });
