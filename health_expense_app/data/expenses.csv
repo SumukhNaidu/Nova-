@@ -15,4 +15,6 @@ Date,Category,Amount,Description,user_id
 2026-12-23,Pharmacy,12000.0,leg fracture,2
 2026-12-23,Insurance,20000.0,liver transplant,2
 2026-12-23,Insurance,1200.0,accident,4
-2026-12-23,Therapy,1500,i am suffering with cough and xold ,4
+2026-12-23,Therapy,1500.0,i am suffering with cough and xold ,4
+2026-04-08,Emergency,2000.0,kidney stone,4
+0006-12-23,Consultation,3000,knee pain,4

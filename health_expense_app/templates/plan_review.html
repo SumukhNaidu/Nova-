@@ -167,9 +167,9 @@ tailwind.config = {
                         <div class="flex items-start gap-4">
                             <span class="material-symbols-outlined text-emerald-600 mt-1">recommend</span>
                             <div>
-                                <h4 class="font-bold text-emerald-900 mb-1">Upgrade to Premium Extended Coverage</h4>
+                                <h4 class="font-bold text-emerald-900 mb-1">{{ analysis.recommendation_title }}</h4>
                                 <p class="text-emerald-800/80 text-sm leading-relaxed">
-                                    By opting for a plan with higher limits for specialty categories, you could save an estimated <strong>₹40,000 annually</strong> in out-of-pocket overhead costs.
+                                    {{ analysis.recommendation_text }}
                                 </p>
                             </div>
                         </div>

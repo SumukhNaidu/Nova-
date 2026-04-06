@@ -65,6 +65,25 @@ def analyze_expenses(user_id):
     # Calculate a dynamic deductible remaining (assuming 50k base limit)
     deductible_remaining = max(0, 50000 - total_expenses)
     
+    recommendation_title = "Maintain Current Coverage"
+    recommendation_text = "Your expenditure across categories looks balanced. No change is strictly necessary right now."
+    
+    if highest_category == 'Emergency':
+        recommendation_title = "Upgrade to Premium Extended Coverage"
+        recommendation_text = "By opting for a plan with higher limits for specialty categories, you could save an estimated ₹40,000 annually in out-of-pocket overhead costs."
+    elif highest_category == 'Pharmacy':
+        recommendation_title = "Opt for the Pharmacy Rx Saver Plan"
+        recommendation_text = "Your prescription and pharmacy costs are unusually high. The Rx Saver plan offers zero co-pays on recurring medications."
+    elif highest_category == 'Therapy':
+        recommendation_title = "Expand Outpatient Mental Health Riders"
+        recommendation_text = "Standard policies limit therapy sessions. Adjusting your outpatient rider will grant you unlimited covered visits and drastically lower costs."
+    elif highest_category == 'Lab Tests':
+        recommendation_title = "Review Diagnostics Copays"
+        recommendation_text = "You're spending heavily on tests. Consider moving to a network that operates in-house laboratories to cut these costs by 60%."
+    elif highest_category == 'Insurance':
+        recommendation_title = "Review Premium vs Coverage Tradeoffs"
+        recommendation_text = "A high percentage of your costs are going directly toward insurance premiums rather than care. Ensure you aren't over-insured for your risk pool."
+
     return {
         'total_expenses': total_expenses,
         'invoices_pending': invoices_pending,
@@ -73,7 +92,9 @@ def analyze_expenses(user_id):
         'highest_category_amount': highest_category_amount,
         'category_distribution': category_distribution,
         'recent_expenses': recent_expenses,
-        'deductible_remaining': deductible_remaining
+        'deductible_remaining': deductible_remaining,
+        'recommendation_title': recommendation_title,
+        'recommendation_text': recommendation_text
     }
 
 def generate_charts(user_id):
