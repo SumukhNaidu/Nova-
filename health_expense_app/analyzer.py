@@ -74,6 +74,9 @@ def analyze_expenses(user_id):
     elif highest_category == 'Pharmacy':
         recommendation_title = "Opt for the Pharmacy Rx Saver Plan"
         recommendation_text = "Your prescription and pharmacy costs are unusually high. The Rx Saver plan offers zero co-pays on recurring medications."
+    elif highest_category == 'Consultation':
+        recommendation_title = "Optimize In-Network Providers"
+        recommendation_text = "Specialist consultations are driving your costs up. Make sure you are strictly utilizing tier-1 in-network doctors to eliminate 40% of consultation overhead."
     elif highest_category == 'Therapy':
         recommendation_title = "Expand Outpatient Mental Health Riders"
         recommendation_text = "Standard policies limit therapy sessions. Adjusting your outpatient rider will grant you unlimited covered visits and drastically lower costs."

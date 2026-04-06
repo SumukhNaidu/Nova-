@@ -172,7 +172,6 @@ Sign Out
 <div class="relative z-10">
 <div class="flex items-center gap-2 mb-4">
 <span class="text-xs font-label uppercase tracking-widest text-primary font-bold">Total Expenditures</span>
-<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold">+12% vs last mo.</span>
 </div>
 <div class="font-headline text-6xl font-extrabold text-on-surface tracking-tighter mb-4">₹{{ analysis.total_expenses | inr }}</div>
 </div>
@@ -192,6 +191,7 @@ Sign Out
 </div>
 <!-- Category Breakdowns (Bento Item) -->
 <div class="md:col-span-1 lg:col-span-2 grid grid-cols-2 gap-4">
+{% if analysis.category_distribution %}
 {% for category, amount in analysis.category_distribution.items() %}
 {% if loop.index <= 4 %}
 <div class="bg-surface-container-low p-6 rounded-xl border-l-4 border-primary">
@@ -199,11 +199,12 @@ Sign Out
 <p class="font-headline text-2xl font-bold text-on-surface">₹{{ amount | inr }}</p>
 </div>
 {% endif %}
+{% endfor %}
 {% else %}
 <div class="bg-surface-container-low p-6 rounded-xl border-l-4 border-primary">
 <h3 class="text-sm font-bold text-on-surface-variant">No data</h3>
 </div>
-{% endfor %}
+{% endif %}
 </div>
 <!-- Dynamic Interactive Graph -->
 <div class="md:col-span-3 lg:col-span-4 mt-8 p-8 rounded-3xl bg-white shadow-xl border border-outline-variant/10">
@@ -219,12 +220,16 @@ Sign Out
 
 <!-- Chart.js CDN -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script id="category-data" type="application/json">
+{{ analysis.category_distribution | tojson | safe }}
+</script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const ctx = document.getElementById('expenseChart').getContext('2d');
         
         // Inject Python Analysis Data cleanly
-        const categoryData = {{ analysis.category_distribution | tojson | safe }};
+        const categoryDataRaw = document.getElementById('category-data').textContent;
+        const categoryData = JSON.parse(categoryDataRaw);
         
         const labels = Object.keys(categoryData);
         const dataValues = Object.values(categoryData);
@@ -308,20 +313,20 @@ Sign Out
 <p class="text-slate-500 font-inter text-xs tracking-wide uppercase">© 2024 The Clinical Curative. Editorial Healthcare Management.</p>
 </div>
 <div class="flex gap-8">
-<a class="text-slate-500 font-inter text-xs tracking-wide uppercase hover:underline hover:text-blue-600 transition-all opacity-80 hover:opacity-100" >Privacy Policy</a>
-<a class="text-slate-500 font-inter text-xs tracking-wide uppercase hover:underline hover:text-blue-600 transition-all opacity-80 hover:opacity-100" >Terms of Service</a>
-<a class="text-slate-500 font-inter text-xs tracking-wide uppercase hover:underline hover:text-blue-600 transition-all opacity-80 hover:opacity-100" >HIPAA Compliance</a>
-<a class="text-slate-500 font-inter text-xs tracking-wide uppercase hover:underline hover:text-blue-600 transition-all opacity-80 hover:opacity-100" >Contact</a>
+<a href="#" class="text-slate-500 font-inter text-xs tracking-wide uppercase hover:underline hover:text-blue-600 transition-all opacity-80 hover:opacity-100">Privacy Policy</a>
+<a href="#" class="text-slate-500 font-inter text-xs tracking-wide uppercase hover:underline hover:text-blue-600 transition-all opacity-80 hover:opacity-100">Terms of Service</a>
+<a href="#" class="text-slate-500 font-inter text-xs tracking-wide uppercase hover:underline hover:text-blue-600 transition-all opacity-80 hover:opacity-100">HIPAA Compliance</a>
+<a href="#" class="text-slate-500 font-inter text-xs tracking-wide uppercase hover:underline hover:text-blue-600 transition-all opacity-80 hover:opacity-100">Contact</a>
 </div>
 </div>
 </footer>
 <!-- BottomNavBar for Mobile -->
 <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white shadow-[0_-4px_10px_rgba(0,0,0,0.05)] h-16 flex items-center justify-around px-4 z-50">
-<a class="flex flex-col items-center gap-1 text-blue-700" >
+<a href="{{ url_for('dashboard') }}" class="flex flex-col items-center gap-1 text-blue-700">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
 <span class="text-[10px] font-bold">Overview</span>
 </a>
-<a class="flex flex-col items-center gap-1 text-slate-400" >
+<a href="{{ url_for('history') }}" class="flex flex-col items-center gap-1 text-slate-400">
 <span class="material-symbols-outlined">receipt_long</span>
 <span class="text-[10px] font-medium">History</span>
 </a>
@@ -334,7 +339,7 @@ Sign Out
 <span class="material-symbols-outlined">psychology</span>
 <span class="text-[10px] font-medium">AI Advisor</span>
 </a>
-<a class="flex flex-col items-center gap-1 text-slate-400" >
+<a href="#" class="flex flex-col items-center gap-1 text-slate-400">
 <span class="material-symbols-outlined">settings</span>
 <span class="text-[10px] font-medium">Settings</span>
 </a>
