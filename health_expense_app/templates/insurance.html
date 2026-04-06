@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Expense History | The Clinical Curative</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-primary": "#a9c7ff",
+                    "surface-container-highest": "#e0e3e6",
+                    "secondary-fixed": "#78fc9c",
+                    "primary-fixed-dim": "#a9c7ff",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed": "#d6e3ff",
+                    "surface": "#f7f9fc",
+                    "tertiary-fixed": "#96f1fc",
+                    "on-surface-variant": "#424752",
+                    "surface-variant": "#e0e3e6",
+                    "primary-container": "#005eb8",
+                    "error": "#ba1a1a",
+                    "on-secondary-container": "#007236",
+                    "surface-container-low": "#f2f4f7",
+                    "tertiary": "#005057",
+                    "on-secondary-fixed": "#00210b",
+                    "on-surface": "#191c1e",
+                    "surface-tint": "#005db6",
+                    "tertiary-container": "#006a73",
+                    "error-container": "#ffdad6",
+                    "secondary": "#006d33",
+                    "on-primary-fixed-variant": "#00468c",
+                    "on-primary-fixed": "#001b3d",
+                    "on-secondary-fixed-variant": "#005225",
+                    "secondary-fixed-dim": "#5adf82",
+                    "tertiary-fixed-dim": "#7ad4df",
+                    "on-tertiary-fixed": "#001f23",
+                    "on-tertiary-container": "#8ee8f3",
+                    "on-error-container": "#93000a",
+                    "surface-container": "#eceef1",
+                    "primary": "#00478d",
+                    "inverse-on-surface": "#eff1f4",
+                    "on-background": "#191c1e",
+                    "secondary-container": "#75f999",
+                    "background": "#f7f9fc",
+                    "surface-container-high": "#e6e8eb",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-dim": "#d8dadd",
+                    "inverse-surface": "#2d3133",
+                    "on-primary-container": "#c8daff",
+                    "outline": "#727783",
+                    "outline-variant": "#c2c6d4",
+                    "on-error": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#004f56",
+                    "surface-bright": "#f7f9fc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .tonal-shift {
+            background: linear-gradient(180deg, #f7f9fc 0%, #eceef1 100%);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #00478d 0%, #005eb8 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-slate-50/80 backdrop-blur-xl shadow-sm">
+<nav class="flex justify-between items-center max-w-7xl mx-auto px-6 h-16">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-tight text-blue-800 font-headline">The Clinical Curative</span>
+
+</div>
+<div class="flex items-center gap-4">
+<a href="{{ url_for('add_expense') }}" class="hidden md:flex items-center gap-2 px-4 py-2 primary-gradient text-on-primary rounded-xl font-semibold text-sm transition-all active:scale-95 shadow-sm inline-block">
+<span class="material-symbols-outlined text-sm">add</span>
+                    Add Expense
+                </a>
+<div class="flex items-center gap-2 text-slate-500">
+<span class="material-symbols-outlined cursor-pointer hover:text-blue-600 p-2">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-blue-600 p-2">help_outline</span>
+</div>
+<img alt="User profile avatar" class="w-8 h-8 rounded-full border border-outline-variant/20" data-alt="portrait of a confident female healthcare administrator in a bright modern clinic setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWlZURazoNTAOvixipJ5ymhm7O2f7jM53n4jGOvOD4b3d1X-50bb77XF6XfAvvXEUCxjJRexb-4uBddHe643NLAL5X0-w04laFggDIpINQlVaJ57Cy2GzvNlS_8C6g1zlgXBY6EMLdNWx6iidmg0d-ZudRtZpzzsaO8OBfK1-pfwE98j27-01NyGLpGXOU65IKyW6Jnv9XQf9-fRhiOkZkIwdLNomArDd38QVm884235JqrPoF8yXb9-PsV7_oH65bJD0y6hZ5KB0"/>
+</div>
+</nav>
+</header>
+<div class="flex min-h-screen pt-16">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex h-[calc(100vh-64px)] w-64 border-r border-slate-200/50 bg-slate-50 flex-col py-8 px-4 space-y-2 sticky top-16">
+<div class="px-2 mb-6">
+<h3 class="font-headline font-bold text-blue-900 text-lg">Expense Portal</h3>
+<p class="text-xs text-slate-500 uppercase tracking-wider">{{ patient_name }}</p>
+</div>
+<a href="{{ url_for('dashboard') }}" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 transition-all rounded-lg font-medium group">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-blue-700">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a href="{{ url_for('history') }}" class="flex items-center gap-3 px-4 py-3 bg-white text-blue-700 font-bold rounded-lg shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+<span>Expenses</span>
+</a>
+<a href="{{ url_for('advisor') }}" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 transition-all rounded-lg font-medium group">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-blue-700">psychology</span>
+<span>AI Advisor</span>
+</a>
+<a href="{{ url_for('insurance') }}" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 transition-all rounded-lg font-medium group">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-blue-700">health_and_safety</span>
+<span>Insurance Plans</span>
+</a>
+<div class="pt-8 mt-auto space-y-2">
+<button class="w-full px-4 py-3 bg-blue-100 text-blue-800 rounded-xl font-bold text-sm mb-4">Plan Review</button>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-500 text-sm hover:underline">
+<span class="material-symbols-outlined text-sm">contact_support</span>
+<span>Support</span>
+</a>
+<a href="{{ url_for('logout') }}" class="flex items-center gap-3 px-4 py-2 text-slate-500 text-sm hover:underline hover:text-error hover:bg-error-container/20 rounded-xl transition-all">
+<span class="material-symbols-outlined text-sm">logout</span>
+<span>Sign Out</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 px-4 py-8 md:px-8 lg:px-12 max-w-6xl mx-auto w-full">
+    <div class="mb-10">
+        <h1 class="text-4xl font-headline font-extrabold tracking-tight text-on-surface">Insurance Plans</h1>
+        <p class="text-on-surface-variant mt-2 max-w-2xl">Manage your active policies and browse premium coverage networks.</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Plan 1 -->
+        <div class="bg-primary text-on-primary px-8 py-8 rounded-3xl relative overflow-hidden shadow-xl">
+            <div class="absolute -right-10 -top-10 w-48 h-48 bg-white/10 rounded-full blur-2xl"></div>
+            <h4 class="text-xs uppercase tracking-widest font-bold text-primary-fixed mb-1">Active Coverage</h4>
+            <h2 class="text-3xl font-headline font-black mb-6">Curative Platinum</h2>
+            
+            <div class="space-y-4 font-body">
+                <div class="flex justify-between border-b border-white/20 pb-2">
+                    <span class="opacity-80">Policy #</span>
+                    <span class="font-bold tracking-wider">CP-981245-A</span>
+                </div>
+                <div class="flex justify-between border-b border-white/20 pb-2">
+                    <span class="opacity-80">Deductible Remaining</span>
+                    <span class="font-bold">₹10,500</span>
+                </div>
+                <div class="flex justify-between pb-2">
+                    <span class="opacity-80">Renewal Date</span>
+                    <span class="font-bold">Jan 01, 2027</span>
+                </div>
+            </div>
+            <button class="mt-8 px-6 py-3 bg-white text-primary rounded-xl font-bold w-full hover:bg-slate-100 transition-colors">File a Claim</button>
+        </div>
+    </div>
+</main>
+
+</div>
+<!-- Footer -->
+<footer class="w-full border-t border-slate-200/50 bg-slate-50">
+<div class="flex flex-col md:flex-row justify-between items-center py-12 px-8 max-w-7xl mx-auto">
+<div class="mb-8 md:mb-0">
+<p class="text-slate-500 font-inter text-xs tracking-wide uppercase">© 2024 The Clinical Curative. Editorial Healthcare Management.</p>
+</div>
+<div class="flex gap-8">
+<a class="text-slate-500 font-inter text-xs tracking-wide uppercase hover:underline opacity-80 hover:opacity-100" >Privacy Policy</a>
+<a class="text-slate-500 font-inter text-xs tracking-wide uppercase hover:underline opacity-80 hover:opacity-100" >Terms of Service</a>
+<a class="text-slate-500 font-inter text-xs tracking-wide uppercase hover:underline opacity-80 hover:opacity-100" >HIPAA Compliance</a>
+<a class="text-slate-500 font-inter text-xs tracking-wide uppercase hover:underline opacity-80 hover:opacity-100" >Contact</a>
+</div>
+</div>
+</footer>
+</body></html>

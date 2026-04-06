@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Clinical Curative | Expense Dashboard</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-primary": "#a9c7ff",
+                        "surface-container-highest": "#e0e3e6",
+                        "secondary-fixed": "#78fc9c",
+                        "primary-fixed-dim": "#a9c7ff",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#d6e3ff",
+                        "surface": "#f7f9fc",
+                        "tertiary-fixed": "#96f1fc",
+                        "on-surface-variant": "#424752",
+                        "surface-variant": "#e0e3e6",
+                        "primary-container": "#005eb8",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#007236",
+                        "surface-container-low": "#f2f4f7",
+                        "tertiary": "#005057",
+                        "on-secondary-fixed": "#00210b",
+                        "on-surface": "#191c1e",
+                        "surface-tint": "#005db6",
+                        "tertiary-container": "#006a73",
+                        "error-container": "#ffdad6",
+                        "secondary": "#006d33",
+                        "on-primary-fixed-variant": "#00468c",
+                        "on-primary-fixed": "#001b3d",
+                        "on-secondary-fixed-variant": "#005225",
+                        "secondary-fixed-dim": "#5adf82",
+                        "tertiary-fixed-dim": "#7ad4df",
+                        "on-tertiary-fixed": "#001f23",
+                        "on-tertiary-container": "#8ee8f3",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#eceef1",
+                        "primary": "#00478d",
+                        "inverse-on-surface": "#eff1f4",
+                        "on-background": "#191c1e",
+                        "secondary-container": "#75f999",
+                        "background": "#f7f9fc",
+                        "surface-container-high": "#e6e8eb",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#d8dadd",
+                        "inverse-surface": "#2d3133",
+                        "on-primary-container": "#c8daff",
+                        "outline": "#727783",
+                        "outline-variant": "#c2c6d4",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#004f56",
+                        "surface-bright": "#f7f9fc"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-shift { background-color: #eceef1; }
+        .glass-card {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.8);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #00478d 0%, #005eb8 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary/20">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-slate-50/80 backdrop-blur-xl shadow-sm h-16">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-6 h-full">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-tight text-blue-800 font-headline">The Clinical Curative</span>
+
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center bg-surface-container rounded-full px-4 py-1.5 gap-2">
+<span class="material-symbols-outlined text-outline text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 placeholder:text-outline" placeholder="Search records..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-slate-500 hover:text-blue-600 transition-colors">notifications</button>
+<button class="material-symbols-outlined text-slate-500 hover:text-blue-600 transition-colors">help_outline</button>
+<a href="{{ url_for('add_expense') }}" class="primary-gradient text-on-primary px-4 py-2 rounded-xl text-sm font-semibold shadow-md active:scale-95 transition-all">
+                    Add Expense
+                </a>
+<img alt="User profile avatar" class="w-10 h-10 rounded-full border-2 border-white shadow-sm object-cover" data-alt="portrait of a professional healthcare administrator in a bright modern medical office setting with soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdVVxG2uPQ15Ob5MV6CV0eKJnQXBh1284wHEKu2l_l4PvnMgFJX5rRfqOsu4tQH4yKa__BIAnMQd8MhOAsSb594tDAn00X9xa4A_W4UtLsVp8piINWjU-3n3sBEhTDjQr_56T8O_pqAabbxriSDKHB2ygNuAXaeg2gcfMsknjC-cKxG2sLwj_i3joqV3J-lPePcIKtN4sCKOH3Op6PsQAfn50WK48fJy7IMpjMBwcNr36D2D8mN-xA5Vx0BhbDWQYiJ_wCPxQypGE"/>
+</div>
+</div>
+</header>
+<div class="flex min-h-screen pt-16">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-[calc(100vh-64px)] w-64 border-r border-slate-200/50 bg-slate-50 py-8 px-4 space-y-2 sticky top-16">
+<div class="px-4 mb-6">
+<div class="flex items-center gap-3 mb-1">
+<div class="w-8 h-8 rounded-lg primary-gradient flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-sm" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+</div>
+<span class="font-headline font-bold text-blue-900">Expense Portal</span>
+</div>
+<p class="text-xs text-slate-500 font-medium uppercase tracking-widest pl-11">{{ patient_name }}</p>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 bg-white text-blue-700 font-bold rounded-xl shadow-sm transition-all duration-200 cursor-pointer" href="{{ url_for('dashboard') }}">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-inter text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 rounded-xl transition-all duration-200 cursor-pointer group" href="{{ url_for('history') }}">
+<span class="material-symbols-outlined group-hover:text-blue-700">receipt_long</span>
+<span class="font-inter text-sm">Expenses</span>
+</a>
+<a href="{{ url_for('advisor') }}" class="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-slate-600 hover:text-primary hover:bg-primary-container/20 transition-colors group">
+<span class="material-symbols-outlined text-xl group-hover:scale-110 transition-transform">model_training</span>
+<span class="font-inter text-sm">AI Advisor</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 rounded-xl transition-all duration-200 cursor-pointer group" href="{{ url_for('insurance') }}">
+<span class="material-symbols-outlined group-hover:text-blue-700">health_and_safety</span>
+<span class="font-inter text-sm">Insurance Plans</span>
+</a>
+</nav>
+<div class="mt-auto pt-8 space-y-1 border-t border-slate-200/50">
+<button class="w-full flex items-center gap-3 px-4 py-2 text-slate-500 hover:bg-slate-100 rounded-xl transition-all font-inter text-sm">
+<span class="material-symbols-outlined">contact_support</span>
+                    Support
+                </button>
+<a href="{{ url_for('logout') }}" class="w-full flex items-center gap-3 px-4 py-2 text-error hover:bg-error-container/20 rounded-xl transition-all font-inter text-sm">
+<span class="material-symbols-outlined">logout</span>
+Sign Out
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 p-6 md:p-10 max-w-7xl mx-auto w-full">
+<header class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h1 class="font-headline text-4xl font-extrabold text-on-surface tracking-tight mb-2">Health Spending Overview</h1>
+<p class="text-on-surface-variant font-medium">Tracking your clinical expenses for <span class="text-primary font-bold">June 2024</span>.</p>
+</div>
+<div class="flex items-center gap-4 bg-surface-container-low p-2 rounded-xl">
+<button class="px-4 py-2 rounded-lg bg-surface-container-lowest shadow-sm text-sm font-semibold">Monthly</button>
+<button class="px-4 py-2 rounded-lg text-sm font-medium text-on-surface-variant hover:bg-surface-container transition-colors">Quarterly</button>
+<button class="px-4 py-2 rounded-lg text-sm font-medium text-on-surface-variant hover:bg-surface-container transition-colors">Yearly</button>
+</div>
+</header>
+<!-- Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+<!-- Total Spending Card -->
+<div class="md:col-span-2 lg:col-span-2 p-8 rounded-full bg-white shadow-sm border border-outline-variant/10 flex flex-col justify-between relative overflow-hidden min-h-[240px]">
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-4">
+<span class="text-xs font-label uppercase tracking-widest text-primary font-bold">Total Expenditures</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold">+12% vs last mo.</span>
+</div>
+<div class="font-headline text-6xl font-extrabold text-on-surface tracking-tighter mb-4">₹{{ analysis.total_expenses | inr }}</div>
+</div>
+<div class="flex gap-4 relative z-10">
+<div class="flex flex-col">
+<span class="text-[10px] text-outline font-bold uppercase tracking-widest">Invoices Pending</span>
+<span class="font-headline text-xl font-bold">₹{{ analysis.invoices_pending | inr }}</span>
+</div>
+<div class="w-px h-10 bg-outline-variant/20 self-center"></div>
+<div class="flex flex-col">
+<span class="text-[10px] text-outline font-bold uppercase tracking-widest">Refunds Processed</span>
+<span class="font-headline text-xl font-bold">₹{{ analysis.refunds_processed | inr }}</span>
+</div>
+</div>
+<!-- Abstract graphic element -->
+<div class="absolute -bottom-10 -right-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+</div>
+<!-- Category Breakdowns (Bento Item) -->
+<div class="md:col-span-1 lg:col-span-2 grid grid-cols-2 gap-4">
+{% for category, amount in analysis.category_distribution.items() %}
+{% if loop.index <= 4 %}
+<div class="bg-surface-container-low p-6 rounded-xl border-l-4 border-primary">
+<h3 class="text-sm font-bold text-on-surface-variant">{{ category }}</h3>
+<p class="font-headline text-2xl font-bold text-on-surface">₹{{ amount | inr }}</p>
+</div>
+{% endif %}
+{% else %}
+<div class="bg-surface-container-low p-6 rounded-xl border-l-4 border-primary">
+<h3 class="text-sm font-bold text-on-surface-variant">No data</h3>
+</div>
+{% endfor %}
+</div>
+<!-- AI Smart Suggestions (Wide Card) -->
+<div class="md:col-span-3 lg:col-span-4 mt-4">
+<div class="bg-on-surface text-white rounded-full p-1 lg:p-2 flex flex-col lg:flex-row gap-6 items-center overflow-hidden">
+<div class="flex items-center gap-4 px-6 py-4 lg:py-0">
+<div class="w-12 h-12 rounded-full primary-gradient flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="shrink-0">
+<h3 class="font-headline font-bold text-xl leading-tight">Advisor Insights</h3>
+<p class="text-outline-variant text-xs font-label tracking-wide uppercase">Real-time health optimization</p>
+</div>
+</div>
+<div class="flex-1 grid grid-cols-1 md:grid-cols-3 gap-1 w-full lg:w-auto">
+<!-- Suggestion 1: High Medicine Usage -->
+<div class="bg-surface-container-highest/10 hover:bg-surface-container-highest/20 transition-colors px-6 py-6 border-l md:border-l-0 md:border-l border-white/10 group cursor-default">
+<div class="flex items-start gap-3 mb-2">
+<span class="material-symbols-outlined text-secondary-fixed text-sm">check_circle</span>
+<h4 class="text-sm font-bold text-primary-fixed">Medicine Alert</h4>
+</div>
+<p class="text-slate-300 text-sm leading-snug">Current spending is 53% of total. Switch to <span class="text-white font-semibold underline decoration-secondary-fixed/50 underline-offset-4">generic alternatives</span> to save up to ₹22,000/mo.</p>
+</div>
+<!-- Suggestion 2: High Total Expenses -->
+<div class="bg-surface-container-highest/10 hover:bg-surface-container-highest/20 transition-colors px-6 py-6 border-l border-white/10 cursor-default">
+<div class="flex items-start gap-3 mb-2">
+<span class="material-symbols-outlined text-error-container text-sm">trending_up</span>
+<h4 class="text-sm font-bold text-error-container">Limit Threshold</h4>
+</div>
+<p class="text-slate-300 text-sm leading-snug">Expenses trending toward ₹5,00,000. We recommend a <span class="text-white font-semibold underline decoration-error-container/50 underline-offset-4">Premium Insurance Plan</span> review.</p>
+</div>
+<!-- Suggestion 3: Preventive Suggestion -->
+<div class="bg-surface-container-highest/10 hover:bg-surface-container-highest/20 transition-colors px-6 py-6 border-l border-white/10 rounded-r-full cursor-default">
+<div class="flex items-start gap-3 mb-2">
+<span class="material-symbols-outlined text-tertiary-fixed text-sm">shield_with_heart</span>
+<h4 class="text-sm font-bold text-tertiary-fixed">Health Strategy</h4>
+</div>
+<p class="text-slate-300 text-sm leading-snug">Frequent consultations detected. Consider a <span class="text-white font-semibold underline decoration-tertiary-fixed/50 underline-offset-4">Preventive Checkup</span> package this quarter.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Data Visualization Section -->
+<div class="md:col-span-2 lg:col-span-2 p-8 rounded-full bg-white shadow-sm border border-outline-variant/10">
+<div class="flex justify-between items-center mb-8">
+<h3 class="font-headline font-bold text-lg">Spending Trends</h3>
+<span class="text-xs text-outline font-medium">Last 6 Months</span>
+</div>
+<div class="flex items-center justify-center pt-4">
+    <img src="{{ url_for('static', filename=chart_filename) }}?t={{ range(1, 1000) | random }}" class="w-full h-auto object-contain max-h-64" alt="Expense Distribution Chart" />
+</div>
+</div>
+<!-- Recent Transactions Placeholder / Illustration -->
+<div class="md:col-span-1 lg:col-span-2 p-8 rounded-full bg-white shadow-sm border border-outline-variant/10 overflow-hidden group">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline font-bold text-lg">Hospital Care Guide</h3>
+<button class="text-primary text-sm font-bold hover:underline">View All</button>
+</div>
+<div class="relative h-32 w-full rounded-xl overflow-hidden">
+<img alt="Modern hospital lobby" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="clean minimal hospital corridor with soft ceiling lights and polished floors in a modern medical facility" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUEbYbzZpKMBZxK2CZdOEkdzpU0Hf1QkludFIu1I7QfdmuXEr82zjbTncRp5Y6d3hKnvujA7eNpz5IBbhDBBYmIZiFs7RbCk6a_kctMvHsvXgkTAhu6Lh7YXI44Eajorabq3NoOa5vLXvJGsjyEqER-1rOnariGWlo1WhPS4Alq8aFXQGNa5mzkKYiaZXZ34Mr0qU68FnTKpR3eS6TjHf_iiNQFeAFI4Yv7SPK1lw1XsotZR1lOyFCSqJiqhNxRWSKBgrWCPKUI3s"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+<p class="text-white text-xs font-medium">Navigating insurance claims for emergency services.</p>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-container/30 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-tertiary">description</span>
+</div>
+<div class="flex-1">
+<h4 class="text-sm font-bold truncate">Claims-Process-Guide.pdf</h4>
+<p class="text-[10px] text-outline font-label">Uploaded yesterday • 2.4 MB</p>
+</div>
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors">download</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="w-full border-t border-slate-200/50 bg-slate-50 mt-12">
+<div class="flex flex-col md:flex-row justify-between items-center py-12 px-8 max-w-7xl mx-auto">
+<div class="mb-6 md:mb-0">
+<p class="text-slate-500 font-inter text-xs tracking-wide uppercase">© 2024 The Clinical Curative. Editorial Healthcare Management.</p>
+</div>
+<div class="flex gap-8">
+<a class="text-slate-500 font-inter text-xs tracking-wide uppercase hover:underline hover:text-blue-600 transition-all opacity-80 hover:opacity-100" >Privacy Policy</a>
+<a class="text-slate-500 font-inter text-xs tracking-wide uppercase hover:underline hover:text-blue-600 transition-all opacity-80 hover:opacity-100" >Terms of Service</a>
+<a class="text-slate-500 font-inter text-xs tracking-wide uppercase hover:underline hover:text-blue-600 transition-all opacity-80 hover:opacity-100" >HIPAA Compliance</a>
+<a class="text-slate-500 font-inter text-xs tracking-wide uppercase hover:underline hover:text-blue-600 transition-all opacity-80 hover:opacity-100" >Contact</a>
+</div>
+</div>
+</footer>
+<!-- BottomNavBar for Mobile -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white shadow-[0_-4px_10px_rgba(0,0,0,0.05)] h-16 flex items-center justify-around px-4 z-50">
+<a class="flex flex-col items-center gap-1 text-blue-700" >
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-[10px] font-bold">Overview</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" >
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="text-[10px] font-medium">History</span>
+</a>
+<div class="relative -top-6">
+<button class="w-14 h-14 rounded-full primary-gradient text-white shadow-lg flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</div>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="{{ url_for('advisor') }}">
+<span class="material-symbols-outlined">psychology</span>
+<span class="text-[10px] font-medium">AI Advisor</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" >
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-medium">Settings</span>
+</a>
+</nav>
+</body></html>

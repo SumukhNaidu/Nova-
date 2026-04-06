@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add Expense - The Clinical Curative</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-primary": "#a9c7ff",
+                    "surface-container-highest": "#e0e3e6",
+                    "secondary-fixed": "#78fc9c",
+                    "primary-fixed-dim": "#a9c7ff",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed": "#d6e3ff",
+                    "surface": "#f7f9fc",
+                    "tertiary-fixed": "#96f1fc",
+                    "on-surface-variant": "#424752",
+                    "surface-variant": "#e0e3e6",
+                    "primary-container": "#005eb8",
+                    "error": "#ba1a1a",
+                    "on-secondary-container": "#007236",
+                    "surface-container-low": "#f2f4f7",
+                    "tertiary": "#005057",
+                    "on-secondary-fixed": "#00210b",
+                    "on-surface": "#191c1e",
+                    "surface-tint": "#005db6",
+                    "tertiary-container": "#006a73",
+                    "error-container": "#ffdad6",
+                    "secondary": "#006d33",
+                    "on-primary-fixed-variant": "#00468c",
+                    "on-primary-fixed": "#001b3d",
+                    "on-secondary-fixed-variant": "#005225",
+                    "secondary-fixed-dim": "#5adf82",
+                    "tertiary-fixed-dim": "#7ad4df",
+                    "on-tertiary-fixed": "#001f23",
+                    "on-tertiary-container": "#8ee8f3",
+                    "on-error-container": "#93000a",
+                    "surface-container": "#eceef1",
+                    "primary": "#00478d",
+                    "inverse-on-surface": "#eff1f4",
+                    "on-background": "#191c1e",
+                    "secondary-container": "#75f999",
+                    "background": "#f7f9fc",
+                    "surface-container-high": "#e6e8eb",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-dim": "#d8dadd",
+                    "inverse-surface": "#2d3133",
+                    "on-primary-container": "#c8daff",
+                    "outline": "#727783",
+                    "outline-variant": "#c2c6d4",
+                    "on-error": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#004f56",
+                    "surface-bright": "#f7f9fc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .form-input-focus:focus {
+            background-color: #ffffff;
+            --tw-ring-color: transparent;
+            border-color: #00478d;
+        }
+        .tonal-shift {
+            background: linear-gradient(180deg, #f7f9fc 0%, #eceef1 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface min-h-screen flex flex-col">
+<!-- TopNavBar (Shared Component) - Navigation Suppressed for Focused Task -->
+<header class="bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl fixed top-0 w-full z-50 shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-6 h-16">
+<div class="flex items-center gap-4">
+<span class="text-xl font-bold tracking-tight text-blue-800 dark:text-blue-300 font-headline">The Clinical Curative</span>
+</div>
+<div class="flex items-center gap-6">
+<a href="{{ url_for('advisor') }}" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 transition-all rounded-lg font-medium group">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-blue-700">psychology</span>
+<span>AI Advisor</span>
+</a>
+<button class="text-slate-500 hover:text-blue-600 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-grow flex items-center justify-center pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+<!-- Asymmetric Layout Container -->
+<div class="max-w-4xl w-full grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+<!-- Left Narrative Column (Editorial Voice) -->
+<div class="md:col-span-5 space-y-6 md:mt-12">
+<h1 class="text-4xl font-headline font-extrabold tracking-tight text-primary leading-tight">
+                    Record New <br/><span class="text-tertiary">Medical Expense</span>
+</h1>
+<p class="text-on-surface-variant text-lg max-w-xs leading-relaxed">
+                    Ensure your healthcare records remain precise and organized for advisor review and insurance claims.
+                </p>
+<div class="hidden md:block pt-8">
+<div class="flex items-center gap-4 p-4 rounded-xl bg-surface-container-low">
+<div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">shield_moon</span>
+</div>
+<div>
+<p class="font-label text-xs uppercase tracking-wider text-outline">Compliance Secure</p>
+<p class="text-sm font-semibold text-on-surface">HIPAA-Grade Encryption</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Form Card (Surface Layering) -->
+<div class="md:col-span-7 bg-surface-container-lowest rounded-xl shadow-[0_12px_40px_rgba(0,71,141,0.06)] overflow-hidden">
+<!-- Visual Header for Form -->
+<div class="h-32 w-full relative">
+<div class="absolute inset-0 bg-gradient-to-br from-primary to-primary-container opacity-90"></div>
+<img class="w-full h-full object-cover mix-blend-overlay" data-alt="abstract close-up of blue glass medical vials with soft bokeh and clean laboratory lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJq4PW4FB6FvVCBEFzYr_EWojscNWkbUHhnglJed3sveso5ti0r01Kj0L2RY3kkv9ndlNb_5f-04FTiuf8YmWSQ-33kbwyqZC8ta_TVvyRy_7YdMAVn_cg-LzFJsjoSdDtiKxgpQxN-3d7aaEF1YylPuuX-J3imvngV_RetstZ5bSF0ktTrptTGpWO0Q81_zAgJcJOg_RsAa_E2GTlp7lWA0EWdopm7CP4PJkQVPmMaSbNUtFYGhzltkx5a6OI7PL17W-9RhB-JXg"/>
+<div class="absolute bottom-6 left-8">
+<span class="font-label text-xs uppercase tracking-widest text-on-primary/80">Transaction Entry</span>
+<h2 class="text-white text-xl font-headline font-bold">Expense Details</h2>
+</div>
+</div>
+<div class="p-8 space-y-8">
+<!-- Form Content -->
+<form action="{{ url_for('add_expense') }}" method="POST" class="space-y-6">
+<!-- Input Group: Date -->
+<div class="space-y-2">
+<label class="block font-label text-xs font-semibold uppercase tracking-wider text-on-surface-variant" for="expense-date">
+                                Service Date
+                            </label>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-outline group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+</div>
+<input class="block w-full pl-11 bg-surface-container-highest border-transparent rounded-xl py-4 text-on-surface font-body form-input-focus transition-all duration-200" id="expense-date" name="expense-date" type="date"/>
+</div>
+</div>
+<!-- Input Group: Category Dropdown -->
+<div class="space-y-2">
+<label class="block font-label text-xs font-semibold uppercase tracking-wider text-on-surface-variant" for="category">
+                                Healthcare Category
+                            </label>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-outline group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">medical_services</span>
+</div>
+<select class="block w-full pl-11 bg-surface-container-highest border-transparent rounded-xl py-4 text-on-surface font-body form-input-focus transition-all duration-200 appearance-none" id="category" name="category">
+<option disabled="" selected="" value="">Select a category...</option>
+<option value="Pharmacy">Pharmacy &amp; Prescriptions</option>
+<option value="Consultation">Specialist Consultation</option>
+<option value="Lab Tests">Lab Tests &amp; Imaging</option>
+<option value="Insurance">Insurance Premiums</option>
+<option value="Emergency">Emergency Services</option>
+<option value="Therapy">Wellness &amp; Prevention</option>
+</select>
+<div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-outline">
+<span class="material-symbols-outlined">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Input Group: Description -->
+<div class="space-y-2">
+<label class="block font-label text-xs font-semibold uppercase tracking-wider text-on-surface-variant" for="description">
+                                Description
+                            </label>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-outline group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">description</span>
+</div>
+<input class="block w-full pl-11 bg-surface-container-highest border-transparent rounded-xl py-4 text-on-surface font-body form-input-focus transition-all duration-200" id="description" name="description" placeholder="Short description..." type="text" required/>
+</div>
+</div>
+<!-- Input Group: Cost -->
+<div class="space-y-2">
+<label class="block font-label text-xs font-semibold uppercase tracking-wider text-on-surface-variant" for="cost">
+                                Total Cost
+                            </label>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-outline group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">payments</span>
+</div>
+<input class="block w-full pl-11 bg-surface-container-highest border-transparent rounded-xl py-4 text-on-surface font-body form-input-focus transition-all duration-200" id="cost" name="cost" placeholder="₹ 0.00" type="text"/>
+<div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none font-headline font-bold text-outline">INR</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="pt-6 flex flex-col sm:flex-row gap-4">
+<button class="flex-1 bg-gradient-to-br from-primary to-primary-container text-white font-headline font-bold py-4 px-8 rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all" type="submit">
+                                Submit Expense
+                            </button>
+<button class="flex-1 bg-surface-container-high text-on-surface font-headline font-semibold py-4 px-8 rounded-xl hover:bg-surface-variant transition-colors" type="button">
+                                Cancel
+                            </button>
+</div>
+</form>
+</div>
+<!-- Bottom Informational Footer -->
+<div class="bg-surface-container-low px-8 py-4 flex items-center justify-between border-t border-outline-variant/10">
+<div class="flex items-center gap-2 text-xs text-outline font-medium uppercase tracking-tighter">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+                        Encrypted Tunnel Active
+                    </div>
+<div class="text-[10px] text-outline italic">
+                        Session ID: CLN-4491-X
+                    </div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full border-t border-slate-200/50 dark:border-slate-800/50 bg-slate-50 dark:bg-slate-950 mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center py-12 px-8 max-w-7xl mx-auto">
+<p class="text-slate-500 dark:text-slate-400 font-inter text-xs tracking-wide uppercase">
+                © 2024 The Clinical Curative. Editorial Healthcare Management.
+            </p>
+<div class="flex gap-8 mt-6 md:mt-0">
+<a class="text-slate-500 dark:text-slate-400 font-inter text-xs tracking-wide uppercase hover:underline" >Privacy Policy</a>
+<a class="text-slate-500 dark:text-slate-400 font-inter text-xs tracking-wide uppercase hover:underline" >Terms of Service</a>
+<a class="text-slate-500 dark:text-slate-400 font-inter text-xs tracking-wide uppercase hover:underline" >HIPAA Compliance</a>
+<a class="text-slate-500 dark:text-slate-400 font-inter text-xs tracking-wide uppercase hover:underline" >Contact</a>
+</div>
+</div>
+</footer>
+</body></html>

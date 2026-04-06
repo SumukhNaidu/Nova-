@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<!-- Head identical to login, omitted here inside snippet to save view logic. Uses standard tailwind. -->
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Registration - The Clinical Curative</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {darkMode: "class", theme: { extend: { colors: { "surface-container-highest": "#e0e3e6", "surface": "#f7f9fc", "on-surface-variant": "#424752", "primary-container": "#005eb8", "error": "#ba1a1a", "surface-container-low": "#f2f4f7", "tertiary": "#005057", "on-surface": "#191c1e", "error-container": "#ffdad6", "secondary": "#006d33", "surface-container": "#eceef1", "primary": "#00478d", "on-background": "#191c1e", "background": "#f7f9fc", "surface-container-lowest": "#ffffff", "outline": "#727783", "outline-variant": "#c2c6d4" }, borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, fontFamily: { "headline": ["Manrope"], "body": ["Inter"], "label": ["Inter"] } } } }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .primary-gradient { background: linear-gradient(135deg, #00478d 0%, #005eb8 100%); }
+        .form-input-focus:focus { background-color: #ffffff; --tw-ring-color: transparent; border-color: #00478d; }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface h-screen flex relative overflow-hidden items-center justify-center">
+    <div class="w-full md:w-[500px] bg-surface-container-lowest rounded-2xl shadow-[0_20px_60px_rgba(0,71,141,0.08)] p-8 md:p-10 border border-outline-variant/10 z-10 m-4 max-h-[95vh] overflow-y-auto">
+        <div class="flex items-center gap-3 mb-6">
+             <div class="w-10 h-10 rounded-xl primary-gradient flex items-center justify-center shadow-md">
+                 <span class="material-symbols-outlined text-white text-xl" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+             </div>
+             <h2 class="font-headline font-bold text-2xl text-on-surface">Patient Registration</h2>
+        </div>
+        
+        <p class="text-sm font-medium text-slate-500 mb-8">Setup your unified health expense profile.</p>
+
+        {% if error %}
+            <div class="mb-6 p-4 rounded-xl bg-error-container/30 border border-error/20 flex gap-3 text-error items-start">
+                <span class="material-symbols-outlined text-sm mt-0.5">error</span>
+                <span class="text-sm font-semibold">{{ error }}</span>
+            </div>
+        {% endif %}
+
+        <form action="{{ url_for('signup') }}" method="POST" class="space-y-5">
+            <div class="space-y-2">
+                <label class="block font-label text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Full Name</label>
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-outline group-focus-within:text-primary"><span class="material-symbols-outlined text-sm">badge</span></div>
+                    <input class="block w-full pl-11 bg-surface border border-outline-variant/30 rounded-xl py-3 text-on-surface font-body form-input-focus transition-all" name="name" type="text" required placeholder="John Doe"/>
+                </div>
+            </div>
+            
+            <div class="space-y-2">
+                <label class="block font-label text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Email</label>
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-outline group-focus-within:text-primary"><span class="material-symbols-outlined text-sm">mail</span></div>
+                    <input class="block w-full pl-11 bg-surface border border-outline-variant/30 rounded-xl py-3 text-on-surface font-body form-input-focus transition-all" name="email" type="email" required placeholder="patient@example.com"/>
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <label class="block font-label text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Password</label>
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-outline group-focus-within:text-primary"><span class="material-symbols-outlined text-sm">lock</span></div>
+                    <input class="block w-full pl-11 bg-surface border border-outline-variant/30 rounded-xl py-3 text-on-surface font-body form-input-focus transition-all" name="password" type="password" required placeholder="••••••••"/>
+                </div>
+            </div>
+
+            <button class="w-full primary-gradient text-white font-headline font-bold py-4 rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all mt-4" type="submit">
+                Create Account
+            </button>
+        </form>
+
+        <div class="mt-6 text-center border-t border-outline-variant/20 pt-6">
+            <p class="text-sm text-slate-500 font-medium">Already registered? <a href="{{ url_for('login') }}" class="text-primary font-bold hover:underline">Log In</a></p>
+        </div>
+    </div>
+</body>
+</html>

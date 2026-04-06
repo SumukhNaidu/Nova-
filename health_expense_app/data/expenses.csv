@@ -1,0 +1,16 @@
+Date,Category,Amount,Description,user_id
+2026-04-01,Pharmacy,1200.0,Prescription medication,1
+2026-04-03,Consultation,500.0,GP Visit,1
+2026-04-05,Lab Tests,2500.0,Blood test,1
+2026-04-08,Pharmacy,450.0,Painkillers,1
+2026-04-10,Insurance,1500.0,Monthly Premium,1
+2026-04-12,Consultation,800.0,Specialist Visit,1
+2026-04-15,Therapy,1200.0,Physiotherapy,1
+2026-04-20,Pharmacy,300.0,Vitamins,1
+2026-04-22,Lab Tests,1000.0,X-Ray,1
+2026-04-28,Insurance,1500.0,Health Insurance Premium,1
+2026-12-23,Pharmacy,3000.0,severe fever ,3
+2026-12-23,Lab Tests,12000.0,accident,3
+2026-12-23,Lab Tests,12000.0,accident,3
+2026-12-23,Pharmacy,12000.0,leg fracture,2
+2026-12-23,Insurance,20000,liver transplant,2
